@@ -44,7 +44,7 @@ export function modifierReleve(releves, id, champ, valeur) {
 
 // Renvoie une COPIE triée par température décroissante : la plus chaude d'abord.
 export function trierParTemperatureDecroissante(releves) {
-  throw new Error('TODO : coder trierParTemperatureDecroissante dans src/bonus.js');
+return [...releves].sort((a, b) => b.temperatureC - a.temperatureC);
 }
 
 // Renvoie le relevé dont la température est la plus haute (le premier en cas d'égalité),
