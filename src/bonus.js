@@ -8,6 +8,7 @@ export const CHAMPS_MODIFIABLES = ['date', 'temperatureC', 'pluieMm', 'humiditeA
 
 // Retire du journal le relevé qui a cet identifiant.
 // Renvoie le relevé retiré, ou undefined s'il n'existe pas : le journal ne change pas.
+
 export function supprimerReleve(releves, id) {
   const index = releves.findIndex((releve) => releve.id === id);
   if (index === -1) {
@@ -23,32 +24,44 @@ export function supprimerReleve(releves, id) {
 // · champ 'id', non modifiable (une erreur) · champ absent de CHAMPS_MODIFIABLES (une erreur)
 // · valeur refusée par les règles de l'ajout (leurs erreurs). En cas d'erreur, le relevé ne change pas.
 // Exemple : modifierReleve(releves, 'M03', 'pluieMm', '11') → [] et M03 a maintenant 11 mm (un nombre).
-export function modifierReleve(releves, id, champ, valeur) {
+//modifier Releve change la pluie de M03, convertie en nombre
+//modifierReleve accepte une température décimale avec une virgule
+export function modifierReleve(releves, id, champ, valeur) { 
   const releve = trouverParId(releves, id);
   if (!releve) {
     return [`Identifiant ${id} inconnu.`];
+    
   }
   if (champ === 'id') {
     return ['Le champ id ne peut pas être modifié.'];
   }
   if (!CHAMPS_MODIFIABLES.includes(champ)) {
     return [`Champ ${champ} inconnu.`];
+  }if (champ === 'temperatureC') {
+    valeur = valeur.replace(',', '.'); // Remplace la virgule par un point pour les décimales
   }
-
   const saisie = { ...releve, [champ]: valeur };
   const erreurs = verifierReleve(saisie, releves);
   if (erreurs.length > 0) {
     return erreurs;
   }
+  releve[champ] = champ === 'temperatureC' ? parseFloat(valeur) : parseFloat(valeur);
+  return [];
 }
 
 // Renvoie une COPIE triée par température décroissante : la plus chaude d'abord.
 export function trierParTemperatureDecroissante(releves) {
+  if (releves.length === 0) {
+    return [];
+  }
 return [...releves].sort((a, b) => b.temperatureC - a.temperatureC);
 }
 
 // Renvoie le relevé dont la température est la plus haute (le premier en cas d'égalité),
 // ou null si la liste est vide.
 export function journeeLaPlusChaude(releves) {
-  throw new Error('TODO : coder journeeLaPlusChaude dans src/bonus.js');
+  if (releves.length === 0) {
+    return null;
+  }
+  return [...releves].sort((a, b) => b.temperatureC - a.temperatureC)[0];
 }

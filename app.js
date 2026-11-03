@@ -9,9 +9,19 @@ import { SEUIL_JOUR_PLUVIEUX, joursPluvieux, trierParPluie, trierParTemperature,
 import { cumulPluie, moyenneTemperature, temperatureMinMax } from './src/synthese.js';
 
 const FICHIER_DONNEES = 'donnees/releves.json';
-
+function menu() {
+  console.log("=== Journal météorologique de la ferme ===");
+  console.log("1. Ajouter un relevé");
+  console.log("2. Lister les relevés");
+  console.log("3. Rechercher par date");
+  console.log("4. Afficher les jours pluvieux");
+  console.log("5. Afficher les statistiques");
+  console.log("0. Quitter");
+}
 async function main() {
-  ouvrirSaisie();
+
+  ouvrirSaisie( );
+
   console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
   fermerSaisie();
 }
