@@ -8,14 +8,17 @@ import { estDateValide, versNombre } from './outils.js';
 //            même si la virgule est acceptée à la saisie)
 export function formaterReleve(releve) 
 {
-  
+
   return `${releve.id} | ${releve.date} | ${releve.temperatureC} °C | ${releve.pluieMm} mm | air ${releve.humiditeAirPct} %`;
 }
 
 // Renvoie un texte avec un relevé par ligne (lignes séparées par '\n'),
 // ou 'Aucun relevé enregistré.' si la liste est vide.
 export function listerReleves(releves) {
-  throw new Error('TODO : coder listerReleves dans src/registre.js');
+  if (releves.length === 0) {
+    return 'Aucun relevé enregistré.';
+  }
+  return releves.map(formaterReleve).join('\n');
 }
 
 // Renvoie le relevé qui a cet identifiant, ou undefined s'il n'existe pas.
