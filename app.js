@@ -18,6 +18,14 @@ function menu() {
   console.log("5. Afficher les statistiques");
   console.log("0. Quitter");
 }
+async function chargerDonnees() {
+  try {
+    return await chargerJson(FICHIER_DONNEES);
+  } catch (error) {
+    console.error(`Erreur lors du chargement des données : ${error.message}`);
+    return [];
+  }
+}
 async function main() {
 
   ouvrirSaisie( );
