@@ -6,9 +6,27 @@
 export const SEUIL_JOUR_PLUVIEUX = 10;
 
 // Renvoie le premier relevé fait à cette date (texte AAAA-MM-JJ), ou undefined s'il n'y en a pas.
-export function trouverParDate(releves, date) {
-  throw new Error('TODO : coder trouverParDate dans src/recherche.js');
+export function trouverParDate(releves, dateStr) {
+  // Vérification du format strict AAAA-MM-JJ
+  const match = String(dateStr).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return undefined;
+
+  // Extraction et conversion en nombres
+  const [_, annee, mois, jour] = match.map(Number);
+
+  // Validation de l'existence réelle de la date (les mois commencent à 0 en JS)
+  const objetDate = new Date(annee, mois - 1, jour);
+  const dateExiste = 
+    objetDate.getFullYear() === annee &&
+    objetDate.getMonth() === mois - 1 &&
+    objetDate.getDate() === jour;
+
+  if (!dateExiste) return undefined;
+
+  // Recherche dans les relevés
+  return releves.find((releve) => releve.date === dateStr);
 }
+
 
 // Renvoie un NOUVEAU tableau avec les relevés dont la pluie est SUPÉRIEURE OU ÉGALE au seuil (en mm).
 export function joursPluvieux(releves, seuil) {
