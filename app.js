@@ -26,7 +26,7 @@ async function chargerDonnees() {
     return [];
   }
 }
-async function main() {
+async function main( ) {
 
   ouvrirSaisie( );
 
