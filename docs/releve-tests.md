@@ -8,11 +8,11 @@
 
 | Action | Attendu | Obtenu | Testeur |
 | --- | --- | --- | --- |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
-| ✏️ | | | |
+| Calculs à la main de la temperature moyen (280/10) | 28°C| 28°c(à la calculatrice)|Kanga Jules Christ |
+| Relever la température minimale|26°C | 26°C(En observant)|Kanga Jules Christ |
+| Relever la température maximale | 30°C|30°C(En observant) | Kanga Jules Christ|
+| Relever le cumul de pluie |45mm | 45mm(En observant)| Kanga Jules Christ|
+| Relever journée >= 10 mm | 2 journées (M03 , M08) obtenues| 2 journées (M03 , M08) obtenues après observation| Kanga Jules Christ|
 
-**Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : ✏️
+
+**Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : node app.js ; SUJET.md
