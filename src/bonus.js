@@ -30,30 +30,30 @@ export function modifierReleve(releves, id, champ, valeur) {
   const releve = trouverParId(releves, id);
   if (!releve) {
     return [`Identifiant ${id} inconnu.`];
-    
   }
   if (champ === 'id') {
     return ['Le champ id ne peut pas être modifié.'];
   }
   if (!CHAMPS_MODIFIABLES.includes(champ)) {
     return [`Champ ${champ} inconnu.`];
-  }if (champ === 'temperatureC') {
-    valeur = valeur.replace(',', '.'); // Remplace la virgule par un point pour les décimales
   }
+  if (champ === 'temperatureC' || champ === 'pluieMm' || champ === 'humiditeAirPct') {
+    valeur = valeur.replace(',', '.'); // Remplace la virgule par un point pour les nombres décimaux
+    return verifierReleve({ ...releve, [champ]: valeur }, releves);
+  }
+
   const saisie = { ...releve, [champ]: valeur };
   const erreurs = verifierReleve(saisie, releves);
   if (erreurs.length > 0) {
     return erreurs;
   }
-  releve[champ] = champ === 'temperatureC' ? parseFloat(valeur) : parseFloat(valeur);
+  releve[champ] = champ === 'date' ? valeur : parseFloat(valeur.replace(',', '.'));
   return [];
 }
+//modifier le Releve, change la pluie de M03, convertie en nombre
 
 // Renvoie une COPIE triée par température décroissante : la plus chaude d'abord.
 export function trierParTemperatureDecroissante(releves) {
-  if (releves.length === 0) {
-    return [];
-  }
 return [...releves].sort((a, b) => b.temperatureC - a.temperatureC);
 }
 
@@ -61,6 +61,7 @@ return [...releves].sort((a, b) => b.temperatureC - a.temperatureC);
 // ou null si la liste est vide.
 export function journeeLaPlusChaude(releves) {
   if (releves.length === 0) {
+    
     return null;
   }
   return [...releves].sort((a, b) => b.temperatureC - a.temperatureC)[0];

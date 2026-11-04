@@ -30,7 +30,64 @@ async function main() {
 
   ouvrirSaisie( );
 
-  console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
+  let releves = await chargerDonnees();
+
+  let quitter = false;
+  while (!quitter) {
+    menu();
+    const choix = await demander("Choisissez une option : ");
+    switch (choix) {
+      case '1':
+        const nouveauReleve = await ajouterReleve(releves);
+        if (nouveauReleve) {
+          releves.push(nouveauReleve);
+          await enregistrerJson(FICHIER_DONNEES, releves);
+          console.log("Relevé ajouté avec succès.");
+        }
+  fermerSaisie();
+        break;
+      case '2':
+        console.log(listerReleves(releves));
+        break;
+      case '3':
+        const dateRecherche = await demander("Entrez la date (AAAA-MM-JJ) : ");
+        const releveTrouve = trouverParDate(releves, dateRecherche);
+        if (releveTrouve) {
+          console.log(formaterReleve(releveTrouve));
+        } else {
+          console.log("Aucun relevé trouvé pour cette date.");
+        }
+        break;
+      case '4':
+        const joursPluvieuxList = joursPluvieux(releves, SEUIL_JOUR_PLUVIEUX);
+        if (joursPluvieuxList.length > 0) {
+          console.log("Jours pluvieux :");
+          console.log(listerReleves(joursPluvieuxList));
+        } else {
+          console.log("Aucun jour pluvieux trouvé.");
+        }
+        break;
+      case '5':
+        const moyenneTemp = moyenneTemperature(releves);
+        const cumulPluieTotal = cumulPluie(releves);
+        const minMaxTemp = temperatureMinMax(releves);
+        console.log(`Moyenne des températures : ${moyenneTemp !== null ? moyenneTemp + " °C" : "N/A"}`);
+        console.log(`Cumul des pluies : ${cumulPluieTotal} mm`);
+        if (minMaxTemp) {
+          console.log(`Température minimale : ${minMaxTemp.min} °C`);
+          console.log(`Température maximale : ${minMaxTemp.max} °C`);
+        } else {
+          console.log("Aucune donnée de température disponible.");
+        }
+        break;
+      case '0':
+        quitter = true;
+        break;
+      default:
+        console.log("Option invalide. Veuillez réessayer.");
+    }
+  }
+
   fermerSaisie();
 }
 
