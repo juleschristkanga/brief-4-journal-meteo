@@ -86,9 +86,10 @@ async function main() {
       default:
         console.log("Option invalide. Veuillez réessayer.");
     }
+   
   }
-
+main().catch((error) => {
+  console.error(`Erreur inattendue : ${error.message}`);
   fermerSaisie();
+})
 }
-
-main();
