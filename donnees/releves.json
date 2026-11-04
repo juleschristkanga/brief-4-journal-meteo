@@ -68,5 +68,12 @@
     "temperatureC": 30,
     "pluieMm": 2,
     "humiditeAirPct": 74
+  },
+  {
+    "id": "M12",
+    "date": "2026-10-04",
+    "temperatureC": 70,
+    "pluieMm": 10,
+    "humiditeAirPct": 50
   }
 ]
