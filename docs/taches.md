@@ -14,4 +14,4 @@
 | Dépôt cloné et lancé ailleurs ; démonstration répétée | | | |
 | Bonus | | | |
 
-**Blocages** (le message exact, ce que j'ai essayé, la solution) : ✏️
+**Blocages** (le message exact, ce que j'ai essayé, la solution) : 
