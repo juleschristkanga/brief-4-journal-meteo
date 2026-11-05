@@ -16,4 +16,4 @@
 
 
 
-**Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : node app.js; npm test  
+**Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : KOFFI YAO JEAN VALERY
